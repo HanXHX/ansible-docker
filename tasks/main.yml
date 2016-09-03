@@ -1,0 +1,15 @@
+---
+
+- name: INCLUDE | Install deps
+  apt: pkg={{ item }} update_cache=yes cache_valid_time=3600
+  with_items:
+    - cgroupfs-mount
+    - python-docker
+
+- name: INCLUDE | Upstream install
+  include: upstream.yml
+  when: docker_upstream
+
+- name: INCLUDE | Debian install
+  include: origin.yml
+  when: not docker_upstream

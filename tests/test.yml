@@ -1,0 +1,21 @@
+---
+
+- hosts: all
+  roles:
+    - ../../
+  post_tasks:
+    - name: COMMAND | Run hello world on docker with command
+      command: docker run hello-world 
+      register: c
+      changed_when: false
+    - name: DOCKER | Run hello world with ansible module
+      docker: >
+        image=hello-world
+        state=started
+      register: d
+    - debug: var=d
+    - name: ASSERT | Check output
+      assert:
+        that:
+          c.stdout.find('Hello from Docker!') != -1
+
