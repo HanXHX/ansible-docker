@@ -5,7 +5,7 @@
     - ../../
   post_tasks:
     - name: COMMAND | Run hello world on docker with command
-      command: docker run hello-world 
+      command: docker run hello-world
       register: c
       changed_when: false
 # TODO: test with new Ansible 2.2 modules
@@ -18,6 +18,6 @@
     - name: ASSERT | Check output
       assert:
         that:
-          c.stdout.find('Hello from Docker!') != -1
-          d.ansible_facts.docker_containers[0].Config.Image == 'hello-world' 
+          - c.stdout.find('Hello from Docker!') != -1
+          - d.ansible_facts.docker_containers[0].Config.Image == 'hello-world'
 
