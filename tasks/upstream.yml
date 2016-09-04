@@ -1,8 +1,10 @@
 ---
-
-- name: APT | Install dependencies
-  apt: pkg={{ item }}
-  with_items: ['apt-transport-https', 'ca-certificates']
+- name: APT | Install deps
+  apt: pkg={{ item }} update_cache=yes cache_valid_time=3600
+  with_items:
+    - apt-transport-https
+    - ca-certificates
+    - cgroupfs-mount
 
 - name: APT_KEY | Get APT key
   apt_key: >

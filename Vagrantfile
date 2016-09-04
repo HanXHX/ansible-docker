@@ -6,7 +6,8 @@
 Vagrant.configure("2") do |config|
 
   vms = [
-    [ "debian-jessie", "debian/jessie64" ]
+    [ "debian-jessie", "debian/jessie64" ],
+    [ "debian-jessie-upstream", "debian/jessie64" ]
   ]
 
   config.vm.provider "virtualbox" do |v|

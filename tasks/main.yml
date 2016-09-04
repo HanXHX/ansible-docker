@@ -1,16 +1,10 @@
 ---
 
-- name: APT | Install deps
-  apt: pkg={{ item }} update_cache=yes cache_valid_time=3600
-  with_items:
-    - cgroupfs-mount
-    - python-pip
-
 - name: PIP | Install docker-python
   pip: name=docker-py
   register: pip
 
-- name: SHELL | Fix PIP furthers errors...
+- name: SHELL | Fix PIP errors...
   shell: rm -rf /usr/local/lib/python2.7/dist-packages/requests*
   when: pip.changed
 

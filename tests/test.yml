@@ -1,6 +1,15 @@
 ---
 
+- hosts: debian-jessie
+  tasks:
+    - name: APT_REPOSITORY | Install backports
+      apt_repository: repo='deb http://httpredir.debian.org/debian {{ ansible_distribution_release }}-backports main' state=present
+      when: ansible_distribution_release == 'jessie'
+
 - hosts: all
+  pre_tasks:
+    - name: APT | Install pip
+      apt: pkg=python-pip update_cache=yes cache_valid_time=3600
   roles:
     - ../../
   post_tasks:
