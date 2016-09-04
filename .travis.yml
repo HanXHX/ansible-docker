@@ -1,5 +1,6 @@
 env:
   - PLATFORM=debian-jessie
+  - PLATFORM=debian-jessie-upstream
 
 sudo: required
 
