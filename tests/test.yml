@@ -8,14 +8,16 @@
       command: docker run hello-world 
       register: c
       changed_when: false
+# TODO: test with new Ansible 2.2 modules
     - name: DOCKER | Run hello world with ansible module
       docker: >
         image=hello-world
         state=started
       register: d
-    - debug: var=d
+      changed_when: false
     - name: ASSERT | Check output
       assert:
         that:
           c.stdout.find('Hello from Docker!') != -1
+          d.ansible_facts.docker_containers[0].Config.Image == 'hello-world' 
 
