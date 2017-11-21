@@ -12,3 +12,8 @@
 
 - name: INCLUDE | Upstream install
   include: upstream.yml
+
+- name: SERVICE | Ensure docker is started
+  service:
+    name: docker
+    state: started
