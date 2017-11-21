@@ -1,32 +1,32 @@
 ---
 
-- hosts: debian-jessie
-  tasks:
-    - name: APT_REPOSITORY | Install backports
-      apt_repository: repo='deb http://httpredir.debian.org/debian {{ ansible_distribution_release }}-backports main' state=present
-      when: ansible_distribution_release == 'jessie'
-
 - hosts: all
   pre_tasks:
     - name: APT | Install pip
-      apt: pkg=python-pip update_cache=yes cache_valid_time=3600
+      apt:
+        pkg: python-pip
+        update_cache: yes
+        cache_valid_time: 3600
+
   roles:
     - ../../
+
   post_tasks:
     - name: COMMAND | Run hello world on docker with command
       command: docker run hello-world
       register: c
       changed_when: false
-# TODO: test with new Ansible 2.2 modules
-    - name: DOCKER | Run hello world with ansible module
-      docker: >
-        image=hello-world
-        state=started
+
+    - name: DOCKER_CONTAINER | Run hello world with ansible module
+      docker_container:
+        name: hello_world
+        image: hello-world
+        state: started
       register: d
       changed_when: false
+
     - name: ASSERT | Check output
       assert:
         that:
           - c.stdout.find('Hello from Docker!') != -1
-          - d.ansible_facts.docker_containers[0].Config.Image == 'hello-world'
-
+          - d.ansible_facts.docker_container.Config.Image == 'hello-world'

@@ -1,6 +1,0 @@
----
-
-- name: APT | Install docker
-  apt: pkg=docker.io
-  with_items:
-    - docker.io

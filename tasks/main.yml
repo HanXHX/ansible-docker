@@ -1,17 +1,8 @@
 ---
 
 - name: PIP | Install docker-python
-  pip: name=docker-py
-  register: pip
-
-- name: SHELL | Fix PIP errors...
-  shell: rm -rf /usr/local/lib/python2.7/dist-packages/requests*
-  when: pip.changed
+  pip:
+    name: docker-py
 
 - name: INCLUDE | Upstream install
   include: upstream.yml
-  when: docker_upstream
-
-- name: INCLUDE | Debian install
-  include: origin.yml
-  when: not docker_upstream

@@ -9,12 +9,11 @@ Requirements
 ------------
 
 - PIP (Python)
-- Debian jessie backports repository (if you want docker from Debian packages)
 
 Role Variables
 --------------
 
-- `docker_upstream`: (boolean) Install Docker from upstream respository (default is true)
+- `docker_version`: (string) Specify docker version, default is latest. 
 
 Dependencies
 ------------
