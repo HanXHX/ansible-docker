@@ -12,21 +12,26 @@
     - ../../
 
   post_tasks:
-    - name: COMMAND | Run hello world on docker with command
-      command: docker run hello-world
-      register: c
-      changed_when: false
 
-    - name: DOCKER_CONTAINER | Run hello world with ansible module
-      docker_container:
-        name: hello_world
-        image: hello-world
-        state: started
-      register: d
-      changed_when: false
+    - block:
 
-    - name: ASSERT | Check output
-      assert:
-        that:
-          - c.stdout.find('Hello from Docker!') != -1
-          - d.ansible_facts.docker_container.Config.Image == 'hello-world'
+      - name: COMMAND | Run hello world on docker with command
+        command: docker run hello-world
+        register: c
+        changed_when: false
+
+      - name: DOCKER_CONTAINER | Run hello world with ansible module
+        docker_container:
+          name: hello_world
+          image: hello-world
+          state: started
+        register: d
+        changed_when: false
+
+      - name: ASSERT | Check output
+        assert:
+          that:
+            - c.stdout.find('Hello from Docker!') != -1
+            - d.ansible_facts.docker_container.Config.Image == 'hello-world'
+
+      when: is_docker is not defined or is_docker == false

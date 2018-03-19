@@ -26,7 +26,7 @@ Vagrant.configure("2") do |config|
         ansible.playbook = "tests/test.yml"
         ansible.verbose = 'vv'
         ansible.become = true
-        ansible.extra_vars = opts[:vars]
+        ansible.extra_vars = opts[:vars].merge({ is_docker: true })
       end
     end
   end
