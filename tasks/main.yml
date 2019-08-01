@@ -8,14 +8,8 @@
       - apt-transport-https
       - ca-certificates
       - gnupg2
-#     - python-pip
-#     - python-setuptools
       - python-docker
       - software-properties-common
-
-#- name: PIP | Install docker-python
-#  pip:
-#    name: docker-py
 
 - name: APT_KEY | Get APT key
   apt_key:
