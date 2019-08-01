@@ -1,29 +1,25 @@
 ---
 
-- name: APT | Install setuptools
-  apt:
-    pkg: python-setuptools
-    update_cache: yes
-    cache_valid_time: 3600
-
-- name: PIP | Install docker-python
-  pip:
-    name: docker
-
 - name: APT | Install deps
   apt:
-    pkg: "{{ item }}"
-    update_cache: yes
-    cache_valid_time: 3600
-  with_items:
-    - apt-transport-https
-    - ca-certificates
-    - gnupg2
-    - software-properties-common
+    pkg: "{{ pkgs }}"
+  vars:
+    pkgs:
+      - apt-transport-https
+      - ca-certificates
+      - gnupg2
+#     - python-pip
+#     - python-setuptools
+      - python-docker
+      - software-properties-common
+
+#- name: PIP | Install docker-python
+#  pip:
+#    name: docker-py
 
 - name: APT_KEY | Get APT key
   apt_key:
-    url: "https://download.docker.com/linux/{{ ansible_distribution | lower }}/gpg"
+    url: "https://download.docker.com/linux/debian/gpg"
 
 - name: APT_REPOSITORY | Add Docker repository
   apt_repository:

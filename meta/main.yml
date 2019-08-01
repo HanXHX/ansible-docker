@@ -3,11 +3,12 @@ galaxy_info:
   description: Install and prepare your hosts for Docker
   company:
   license: MIT
-  min_ansible_version: 2.3
+  min_ansible_version: 2.6
   platforms:
   - name: Debian
     versions:
     - stretch
+    - buster
 
   galaxy_tags:
   - docker
